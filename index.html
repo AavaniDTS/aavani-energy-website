@@ -1,440 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Discover the AAVANI Digital Timer Switch: automate lights, pumps and appliances, save energy and simplify everyday control.">
-  <meta name="theme-color" content="#103d2d">
-  <title>Digital Timer Switch | AAVANI Energy Solutions</title>
-  <style>
-    :root{--forest:#103d2d;--green:#176b45;--mint:#eaf5ee;--gold:#e8b650;--ink:#183027;--muted:#64766d;--paper:#fbfcfa;--line:#e2eae4;--white:#fff;--shadow:0 18px 50px rgba(16,61,45,.10)}
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth;scroll-padding-top:90px}
-    body{font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65}
-    a{color:inherit;text-decoration:none}
-    button{font:inherit}
-    .container{width:min(1160px,90%);margin-inline:auto}
-    .announcement{background:var(--forest);color:#e9f4ed;text-align:center;padding:8px 16px;font-size:12px;letter-spacing:.06em}
-    .header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-    .nav-wrap{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-    .logo{display:flex;align-items:center;gap:11px;color:var(--forest);font-weight:850;letter-spacing:.08em;font-size:15px;line-height:1.1}
-    .logo-mark{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--forest);color:var(--gold);font-size:21px}
-    .logo small{display:block;margin-top:5px;color:var(--muted);font-size:9px;letter-spacing:.17em;font-weight:650}
-    .nav-links{display:flex;align-items:center;gap:28px;color:#40564a;font-size:13px;font-weight:650}
-    .nav-links a:hover{color:var(--green)}
-    .button{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 18px;border:1px solid var(--green);border-radius:7px;background:var(--green);color:white;font-size:13px;font-weight:750;transition:.2s ease;cursor:pointer}
-    .button:hover{background:var(--forest);border-color:var(--forest);transform:translateY(-1px)}
-    .button-outline{background:transparent;color:var(--forest);border-color:#b8cbbd}
-    .button-outline:hover{color:white}
-    .menu-toggle{display:none;background:none;border:0;color:var(--forest);font-size:25px;cursor:pointer}
-    .hero{overflow:hidden;position:relative;padding:76px 0 82px;background:radial-gradient(ellipse at 82% 30%,#d7ecdc 0,transparent 37%),linear-gradient(120deg,#f2f8f3,#fffaf0)}
-    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:45px}
-    .eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:17px;color:var(--green);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:850}
-    .eyebrow:before{content:"";width:26px;height:2px;background:var(--gold)}
-    h1,h2,h3{line-height:1.15;letter-spacing:-.035em}
-    h1{max-width:640px;margin-bottom:20px;font-size:clamp(42px,5.7vw,68px);color:var(--forest)}
-    .hero-copy{max-width:570px;color:#5b7064;font-size:17px}
-    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-    .trust-line{display:flex;flex-wrap:wrap;gap:18px;margin-top:28px;color:#52675b;font-size:12px;font-weight:650}
-    .trust-line span:before{content:"✓";margin-right:7px;color:var(--green);font-weight:900}
-    .product-stage{position:relative;display:grid;place-items:center;min-height:365px}
-    .stage-circle{position:absolute;width:340px;height:340px;border-radius:50%;background:linear-gradient(145deg,#d7efdd,#a5d2b2);box-shadow:inset 0 0 0 1px #fff9}
-    .timer{position:relative;width:min(270px,76vw);padding:22px 22px 26px;border:1px solid #d1d8d2;border-radius:18px;background:linear-gradient(135deg,#fdfefd,#e9edea);box-shadow:0 25px 50px #16462b30;transform:rotate(-4deg)}
-    .timer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;color:#718078;font-size:10px;font-weight:800;letter-spacing:.13em}
-    .timer-display{padding:13px 14px;border:5px solid #cdd4cd;border-radius:7px;background:#b8cba7;color:#263b29;text-align:center;font-family:Consolas,monospace;font-size:34px;font-weight:700;letter-spacing:.06em;box-shadow:inset 0 2px 8px #49614333}
-    .timer-day{display:block;margin-top:3px;font-family:Arial,sans-serif;font-size:10px;letter-spacing:.2em}
-    .timer-buttons{display:flex;justify-content:center;gap:10px;margin-top:18px}
-    .timer-buttons i{width:26px;height:26px;border:1px solid #bac3bc;border-radius:50%;background:linear-gradient(#fff,#d9dfda);box-shadow:0 2px 2px #0002}
-    .terminal-row{display:flex;justify-content:space-between;margin-top:20px;padding-top:13px;border-top:1px solid #cbd3cc;color:#718078;font-size:9px;font-weight:800;letter-spacing:.12em}
-    .floating-badge{position:absolute;right:1%;bottom:34px;padding:12px 17px;border:1px solid #e5ece6;border-radius:8px;background:#fff;box-shadow:var(--shadow);font-size:12px;font-weight:750;color:var(--forest)}
-    .floating-badge strong{display:block;color:var(--green);font-size:19px}
-    .section{padding:82px 0}
-    .section-head{max-width:700px;margin:0 auto 38px;text-align:center}
-    .section-head .eyebrow{justify-content:center}
-    h2{font-size:clamp(30px,4vw,43px);color:var(--forest)}
-    .section-head p{margin-top:12px;color:var(--muted)}
-    .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .feature{padding:25px;border:1px solid var(--line);border-radius:11px;background:white}
-    .icon{display:grid;place-items:center;width:43px;height:43px;margin-bottom:17px;border-radius:11px;background:var(--mint);color:var(--green);font-size:20px}
-    .feature h3{margin-bottom:8px;font-size:17px;color:var(--forest)}
-    .feature p{color:var(--muted);font-size:13px}
-    .savings{background:var(--forest);color:white}
-    .savings h2{color:white}
-    .savings .section-head p{color:#c5d7cb}
-    .savings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .saving-card{padding:22px;border:1px solid #ffffff25;border-radius:10px;background:#ffffff0c}
-    .saving-card .label{color:#b9d4c2;font-size:11px;font-weight:750;letter-spacing:.12em;text-transform:uppercase}
-    .saving-card strong{display:block;margin:8px 0 4px;color:#f6ce75;font-size:clamp(24px,3vw,34px)}
-    .saving-card p{color:#d4e2d8;font-size:12px}
-    .fine-print{margin-top:20px;color:#b9d0c1;text-align:center;font-size:11px}
-    .calculator{display:grid;grid-template-columns:.9fr 1.1fr;gap:30px;align-items:center;margin-top:38px;padding:28px;border-radius:12px;background:#fff;color:var(--ink)}
-    .calculator h3{margin-bottom:8px;color:var(--forest);font-size:21px}
-    .calculator p{color:var(--muted);font-size:13px}
-    .calc-fields{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    .calc-fields label{display:block;color:#52675b;font-size:11px;font-weight:700}
-    .calc-fields input{width:100%;margin-top:5px;padding:10px;border:1px solid var(--line);border-radius:6px;font:inherit}
-    .calc-result{grid-column:1/-1;padding:12px;border-radius:6px;background:var(--mint);color:var(--forest);font-size:13px;font-weight:750}
-    .applications{background:#f5f8f5}
-    .application-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-    .application{padding:17px 12px;border:1px solid var(--line);border-radius:8px;background:white;text-align:center;color:#3b5245;font-size:13px;font-weight:700}
-    .application span{display:block;margin-bottom:5px;font-size:22px}
-    .schedule-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:white;padding:24px}
-    .time-axis,.schedule-row{display:grid;grid-template-columns:170px repeat(5,1fr);gap:8px;min-width:690px}
-    .time-axis{padding-bottom:12px;color:#829087;font-size:11px;font-weight:700;text-align:center}
-    .schedule-row{align-items:center;margin:8px 0;color:#40564a;font-size:12px;font-weight:650}
-    .track{position:relative;height:24px;border-radius:4px;background:#f0f4f1}
-    .active{position:absolute;top:0;height:100%;border-radius:4px;background:linear-gradient(90deg,#d9ad51,#f0cf7e)}
-    .spec-layout{display:grid;grid-template-columns:1fr 1fr;gap:25px}
-    .spec-panel{padding:27px;border:1px solid var(--line);border-radius:10px;background:white}
-    .spec-panel h3{margin-bottom:17px;color:var(--forest);font-size:21px}
-    .spec-list{list-style:none}
-    .spec-list li{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid #edf1ee;font-size:12px}
-    .spec-list li:last-child{border:0}
-    .spec-list span:first-child{color:var(--muted)}
-    .spec-list span:last-child{text-align:right;font-weight:700}
-    .notice{margin-top:16px;padding:14px;border-left:3px solid var(--gold);background:#fff8e8;color:#725d2e;font-size:12px}
-    .service{background:#eef6f0}
-    .service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .service-card{padding:23px;border-radius:9px;background:white;text-align:center}
-    .service-card strong{display:block;color:var(--green);font-size:20px}
-    .service-card span{color:var(--muted);font-size:12px}
-    .cta{padding:66px 0;background:linear-gradient(120deg,#f8f2df,#eef7ef)}
-    .cta-inner{display:flex;align-items:center;justify-content:space-between;gap:30px}
-    .cta h2{max-width:620px}
-    .cta p{margin-top:10px;color:var(--muted)}
-    .contact-actions{display:flex;flex-wrap:wrap;gap:10px}
-    footer{padding:40px 0 22px;background:#0b2d22;color:#d7e5dc}
-    .footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:30px;padding-bottom:27px}
-    footer h3{margin-bottom:12px;color:white;font-size:14px;letter-spacing:0}
-    footer p,footer a{color:#bbcdc1;font-size:12px}
-    footer p+p{margin-top:6px}
-    .copyright{padding-top:17px;border-top:1px solid #ffffff20;color:#9fb4a6;text-align:center;font-size:11px}
-    .mobile-cta{display:none}
-    @media(max-width:850px){.nav-links{gap:15px}.hero-grid{gap:20px}.stage-circle{width:290px;height:290px}.feature-grid{grid-template-columns:repeat(2,1fr)}.application-grid{grid-template-columns:repeat(3,1fr)}.calculator{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}}
-    @media(max-width:620px){.container{width:min(100% - 34px,520px)}.nav-wrap{height:67px}.menu-toggle{display:block;margin-left:auto}.nav-links{display:none;position:absolute;left:0;right:0;top:67px;padding:16px 5%;background:white;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start}.nav-links.open{display:flex}.nav-contact{display:none}.hero{padding:52px 0 60px}.hero-grid{grid-template-columns:1fr}.hero h1{font-size:43px}.hero-copy{font-size:15px}.product-stage{min-height:305px}.stage-circle{width:275px;height:275px}.timer{width:235px}.floating-badge{right:0;bottom:13px}.section{padding:60px 0}.feature-grid,.savings-grid,.spec-layout,.service-grid{grid-template-columns:1fr}.application-grid{grid-template-columns:repeat(2,1fr)}.calculator{padding:19px}.calc-fields{grid-template-columns:1fr 1fr}.cta-inner{align-items:flex-start;flex-direction:column}.footer-grid{grid-template-columns:1fr}.mobile-cta{position:fixed;z-index:15;bottom:0;left:0;right:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:white;border-top:1px solid var(--line)}body{padding-bottom:68px}}
-  </style>
-</head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="AAVANI Energy Solutions digital timer switch. Schedule lights, pumps and suitable appliances, with a 2-year warranty and responsive service support.">
+<meta name="theme-color" content="#06274b"><title>AAVANI Energy Solutions | Smart Digital Timer Switch</title>
+<style>
+:root{--navy:#06274b;--blue:#0b4677;--gold:#ffc928;--ink:#10294a;--muted:#60738e;--pale:#f3f8fc;--line:#dce7f1;--white:#fff;--shadow:0 18px 45px #08284914}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;color:var(--ink);font:15px/1.6 Inter,"Segoe UI",Arial,sans-serif;background:white}a{color:inherit;text-decoration:none}button,input{font:inherit}.wrap{width:min(1200px,92%);margin:auto}.top{background:var(--navy);color:#fff;font-size:12px}.top .wrap{min-height:36px;display:flex;align-items:center;justify-content:space-between;gap:14px}.top-items{display:flex;gap:26px;align-items:center}.top a:hover{color:var(--gold)}.head{position:sticky;top:0;z-index:20;background:#fffffff5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}.nav{height:82px;display:flex;align-items:center;justify-content:space-between;gap:22px}.brand{display:flex;align-items:center;gap:10px;min-width:214px;color:var(--navy)}.brand img{width:48px;height:48px;object-fit:contain}.brand b{font-size:20px;line-height:1.05;letter-spacing:.04em}.brand small{display:block;font-size:11px;letter-spacing:.06em;font-weight:700;margin-top:3px}.links{display:flex;align-items:center;gap:25px;font-size:13px;font-weight:700}.links a{padding:9px 0}.links a:hover,.links a.active{color:var(--blue);border-bottom:2px solid var(--gold)}.right{display:flex;align-items:center;gap:10px}.search{display:flex;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#f8fbff}.search input{width:145px;border:0;outline:0;padding:9px 12px;background:transparent;font-size:12px}.search button,.iconbtn{border:0;background:transparent;color:var(--navy);cursor:pointer;font-size:18px;padding:8px 10px}.cart-trigger{position:relative}.count{position:absolute;right:0;top:0;background:var(--gold);color:var(--navy);font-weight:800;font-size:10px;min-width:17px;height:17px;border-radius:50%;display:grid;place-items:center}.hamb{display:none;border:0;background:none;color:var(--navy);font-size:26px}.btn{display:inline-flex;justify-content:center;align-items:center;gap:9px;border:1px solid var(--gold);border-radius:28px;background:var(--gold);color:var(--navy);font-weight:800;padding:13px 22px;transition:.2s;cursor:pointer}.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px #ffc92845}.btn.navy{background:var(--navy);border-color:var(--navy);color:white}.btn.outline{background:white;border-color:#9db3cc;color:var(--navy)}.hero{position:relative;isolation:isolate;overflow:hidden;background:#06274b url("assets/aavani-hero-house.png") center 55%/cover no-repeat;color:white;min-height:480px}.hero:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#06274bf5 0%,#06274be8 34%,#06274b75 60%,#06274b20 100%)}.hero .wrap{min-height:480px;display:grid;grid-template-columns:1.1fr .9fr;align-items:center}.hero-copy{padding:48px 0 56px;max-width:610px}.pill{display:inline-block;background:var(--gold);color:var(--navy);padding:5px 14px;border-radius:18px;font-size:12px;font-weight:800}.hero h1{font-size:clamp(38px,5vw,62px);line-height:1.06;margin:18px 0 15px;letter-spacing:-.035em}.hero h1 span{color:var(--gold)}.hero p{max-width:570px;color:#e0eaf4;font-size:16px;margin:0 0 22px}.hero-points{display:flex;gap:22px;flex-wrap:wrap;margin:20px 0 26px;color:#f3f7fb;font-size:12px}.hero-points span{display:flex;gap:8px;align-items:center}.tick{color:var(--gold);font-weight:900;font-size:17px}.hero-visual{height:430px;display:grid;place-items:center;position:relative}.hero-orbit{position:absolute;width:min(400px,90%);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#dceaf3 0%,#b6cedf 34%,#7095b533 66%,transparent 68%);filter:drop-shadow(0 20px 35px #001b34aa)}.hero-product{position:relative;z-index:1;width:min(260px,64%);height:92%;object-fit:contain;filter:drop-shadow(0 22px 18px #00182b50)}.product-note{position:absolute;right:1%;top:20%;z-index:2;font-size:21px;font-weight:800;font-style:italic;line-height:1.15;transform:rotate(-8deg);color:white;text-shadow:0 3px 10px #06274b}.product-note:after{content:"";display:block;height:4px;background:var(--gold);border-radius:50%;transform:rotate(-7deg);margin-top:9px}.float-tag{position:absolute;bottom:11%;right:2%;border:1px solid #ffffff4a;background:#06274bbd;padding:11px 15px;border-radius:14px;font-size:12px;backdrop-filter:blur(8px)}.categories{background:#f4f9fd;border-bottom:1px solid var(--line)}.category-row{display:grid;grid-template-columns:repeat(5,1fr);padding:21px 0}.category{display:flex;align-items:center;gap:12px;padding:5px 18px;border-right:1px solid #c7d6e5}.category:first-child{padding-left:0}.category:last-child{border:0}.cat-icon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:var(--gold);font-size:22px;flex:none}.category b{display:block;font-size:12px}.category small{display:block;color:var(--muted);font-size:11px}.section{padding:68px 0}.kicker{color:var(--blue);font-size:12px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;display:flex;align-items:center;gap:9px}.kicker:before{content:"";width:18px;height:3px;background:var(--gold)}.section-title{display:flex;align-items:end;justify-content:space-between;gap:22px;margin-bottom:24px}.section-title h2{font-size:34px;line-height:1.15;margin:5px 0}.section-title p{color:var(--muted);margin:5px 0}.product-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:stretch}.product-image{background:linear-gradient(145deg,#f2f7fb,#e6f0f7);border:1px solid var(--line);border-radius:18px;min-height:380px;display:grid;place-items:center;position:relative;overflow:hidden}.product-image:before{content:"";position:absolute;width:290px;height:290px;border-radius:50%;background:#d7e6f3}.product-image img{position:relative;width:215px;height:340px;object-fit:contain;filter:drop-shadow(0 18px 14px #06274b24)}.badge{position:absolute;top:18px;left:18px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:800;border-radius:20px;padding:6px 12px}.product-info{padding:13px 5px}.product-info h3{font-size:27px;margin:7px 0}.stars{color:#f5b900;letter-spacing:2px}.review-note{font-size:12px;color:var(--muted);letter-spacing:0}.price{font-size:23px;font-weight:850;color:var(--navy);margin:18px 0 5px}.price small{font-weight:500;font-size:13px;color:var(--muted)}.product-info>p{color:var(--muted)}.checks{padding:0;margin:20px 0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px;color:#344d69;font-size:13px}.checks li:before{content:"✓";color:#188251;font-weight:900;margin-right:8px}.purchase{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:25px;overflow:hidden}.qty button{border:0;background:#f4f8fb;padding:10px 14px;cursor:pointer;color:var(--navy);font-size:17px}.qty output{min-width:34px;text-align:center}.trust-line{border-top:1px solid var(--line);margin-top:22px;padding-top:18px;display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:12px}.usecases{background:var(--pale)}.use-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.use-card{background:white;border:1px solid var(--line);border-radius:14px;padding:21px;min-height:145px;transition:.2s}.use-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}.use-card .cat-icon{width:42px;height:42px;font-size:19px;margin-bottom:13px}.use-card h3{font-size:15px;margin:0 0 4px}.use-card p{color:var(--muted);font-size:12px;margin:0}.why{background:var(--navy);color:white;padding:46px 0}.why-row{display:grid;grid-template-columns:1.4fr repeat(4,1fr);align-items:center;gap:20px}.why-lead h2{font-size:29px;margin:0 0 5px}.why-lead p{margin:0;color:#d5e2ef;font-size:13px;max-width:310px}.why-item{text-align:center;border-left:1px solid #ffffff35;padding:10px}.why-item .big{font-size:30px;color:var(--gold)}.why-item b{display:block;font-size:13px}.why-item small{display:block;color:#c6d5e4;font-size:11px}.about-grid{display:grid;grid-template-columns:1fr 1.15fr .95fr;align-items:center;gap:30px}.about-art{min-height:260px;border-radius:18px;background:linear-gradient(145deg,#e9f3fa,#f7fafc);display:grid;place-items:center;position:relative;overflow:hidden}.about-art .sun{position:absolute;width:210px;height:210px;background:#ffc9282a;border-radius:50%;right:-25px;top:-40px}.about-art .brand img{width:170px;height:170px}.about-copy h2{font-size:29px;line-height:1.2;margin:6px 0}.about-copy p{color:var(--muted);font-size:14px}.promises{background:#f1f7fc;border-radius:16px;padding:19px}.promise{display:flex;gap:14px;padding:10px 4px}.promise+.promise{border-top:1px solid var(--line)}.promise i{font-style:normal;font-size:22px;color:var(--blue)}.promise b{display:block;font-size:13px}.promise small{color:var(--muted);font-size:11px}.reviews{background:#f8fbfe}.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.review-card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:20px}.review-card h3{font-size:14px;margin:0 0 5px}.review-card p{color:var(--muted);font-size:13px;margin:0}.review-placeholder{grid-column:1/-1;text-align:center;color:var(--muted);padding:20px 0}.cta-band{background:linear-gradient(100deg,#063052,#12628b);color:white;padding:31px 0}.cta-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}.cta-inner h2{margin:0;font-size:25px}.cta-inner p{margin:4px 0 0;color:#deebf5;font-size:13px}.foot{background:#041f3a;color:#dce8f3;padding:36px 0 18px}.footgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.15fr;gap:30px}.foot h3{font-size:14px;color:white;margin:0 0 12px}.foot p,.foot a{font-size:12px;color:#cad9e7}.foot a:hover{color:var(--gold)}.foot-brand{display:flex;align-items:center;gap:10px}.foot-brand img{width:52px;height:52px;object-fit:contain}.foot-brand b{font-size:18px;line-height:1.1;color:white}.copyright{border-top:1px solid #ffffff2a;margin-top:25px;padding-top:14px;display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#b8c9d9}.drawer-backdrop{position:fixed;inset:0;background:#00172b88;z-index:40;display:none}.drawer-backdrop.open{display:block}.drawer{position:fixed;right:0;top:0;height:100dvh;width:min(420px,100%);background:white;z-index:41;padding:23px;transform:translateX(105%);transition:.25s;box-shadow:-15px 0 35px #00172b22;display:flex;flex-direction:column}.drawer.open{transform:translateX(0)}.drawer-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:14px}.drawer-head h2{margin:0}.close{border:0;background:none;font-size:25px;cursor:pointer;color:var(--navy)}.cartline{display:grid;grid-template-columns:75px 1fr auto;gap:13px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line)}.cartline img{width:70px;height:90px;object-fit:contain;background:var(--pale);border-radius:9px}.cartline h3{font-size:14px;margin:0}.cartline small{color:var(--muted)}.cartline button{border:0;background:none;color:#ba3943;cursor:pointer;font-size:12px;padding:7px 0}.drawer-note{font-size:12px;color:var(--muted);margin-top:16px}.drawer-total{margin-top:auto;padding-top:17px;border-top:1px solid var(--line)}.drawer-total div{display:flex;justify-content:space-between;font-size:14px;font-weight:750;margin-bottom:5px}.drawer-total p{font-size:11px;color:var(--muted);margin:0 0 14px}.drawer-total .btn{width:100%}.mobilebar{display:none}
+@media(max-width:950px){.links{gap:14px}.search{display:none}.category{padding:5px 10px}.category b{font-size:11px}.about-grid{grid-template-columns:1fr 1fr}.promises{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr)}.promise+.promise{border-top:0;border-left:1px solid var(--line)}.why-row{grid-template-columns:repeat(4,1fr)}.why-lead{grid-column:1/-1}.footgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.wrap{width:min(100% - 30px,560px)}.top .wrap{justify-content:center;min-height:32px}.top-items{gap:14px}.top-items span:nth-child(2){display:none}.nav{height:68px}.brand{min-width:unset}.brand img{width:40px;height:40px}.brand b{font-size:16px}.brand small{font-size:9px}.hamb{display:block}.links{display:none;position:absolute;left:0;right:0;top:68px;background:white;padding:10px 22px 18px;box-shadow:0 16px 22px #06274b18;flex-direction:column;align-items:stretch;gap:2px}.links.open{display:flex}.links a{padding:12px 0;border-bottom:1px solid var(--line)}.right{gap:3px}.iconbtn{padding:6px}.hero .wrap{grid-template-columns:1fr;min-height:unset}.hero-copy{padding:43px 0 0}.hero h1{font-size:40px}.hero p{font-size:14px}.hero-points{gap:12px;font-size:11px}.hero-visual{height:310px}.hero-product{height:95%;width:200px}.product-note{right:2%;top:17%;font-size:16px}.float-tag{bottom:8%;right:0;font-size:10px}.category-row{grid-template-columns:repeat(2,1fr);padding:12px 0}.category{padding:9px 4px;border:0}.category:last-child{grid-column:1/-1}.cat-icon{width:41px;height:41px;font-size:18px}.category small{font-size:10px}.section{padding:48px 0}.section-title{align-items:start;flex-direction:column;margin-bottom:18px}.section-title h2{font-size:29px}.section-title>.btn{align-self:flex-start}.product-layout{grid-template-columns:1fr;gap:17px}.product-image{min-height:320px}.product-image img{height:280px;width:180px}.product-info h3{font-size:24px}.checks{gap:8px;font-size:12px}.use-grid{grid-template-columns:repeat(2,1fr);gap:10px}.use-card{padding:15px;min-height:132px}.why{padding:34px 0}.why-row{grid-template-columns:repeat(2,1fr);gap:10px}.why-lead{grid-column:1/-1;margin-bottom:8px}.why-item{border-left:0;border-top:1px solid #ffffff35}.about-grid{grid-template-columns:1fr}.about-art{min-height:205px}.about-art .brand img{width:135px;height:135px}.promises{grid-column:auto;display:block}.promise+.promise{border-left:0;border-top:1px solid var(--line)}.review-grid{grid-template-columns:1fr}.review-placeholder{grid-column:auto}.cta-inner{align-items:flex-start;flex-direction:column}.cta-inner h2{font-size:22px}.footgrid{grid-template-columns:1fr 1fr;gap:19px}.footgrid>div:first-child{grid-column:1/-1}.copyright{flex-direction:column}.mobilebar{position:fixed;display:flex;gap:9px;bottom:0;left:0;right:0;padding:9px 15px calc(9px + env(safe-area-inset-bottom));background:#ffffffed;border-top:1px solid var(--line);z-index:30}.mobilebar .btn{flex:1;padding:11px}.foot{padding-bottom:82px}}
+.brand{min-width:150px}.brand img{width:148px;height:74px;object-fit:contain}.foot-brand img{width:150px;height:85px;object-fit:contain;filter:grayscale(1) brightness(0) invert(1)}.foot-brand b{display:none}.product-variants{display:grid;grid-template-columns:1fr 1fr;gap:5px;align-items:center;width:100%;padding:20px 12px 10px}.product-variant{text-align:center;font-size:11px;font-weight:700;color:var(--muted)}.product-variant img{display:block;width:100%;height:170px;object-fit:contain;margin:0 auto}.product-catalog .model-photo.variants-photo{min-height:270px}.product-catalog .model-photo.variants-photo .product-variant img{height:170px}@media(min-width:701px) and (max-width:950px){.product-catalog{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:700px){.brand{min-width:115px}.brand img{width:120px;height:62px}.foot-brand img{width:135px;height:76px}.product-catalog .model-photo.variants-photo{min-height:240px}.product-catalog .model-photo.variants-photo .product-variant img{height:145px}}</style><style>
+.model-card{margin-top:26px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;box-shadow:var(--shadow);display:grid;grid-template-columns:minmax(210px,.62fr) 1fr;align-items:center}.model-photo{min-height:280px;display:grid;place-items:center;background:linear-gradient(145deg,#f1f5f8,#e6edf2);position:relative}.model-photo img{width:190px;height:245px;object-fit:contain;border-radius:12px;mix-blend-mode:multiply}.model-details{padding:28px}.model-details .badge{position:static;display:inline-block}.model-details h3{font-size:24px;margin:12px 0 5px}.model-details p{color:var(--muted);max-width:620px}.model-details .purchase{margin-top:13px}@media(max-width:700px){.model-card{grid-template-columns:1fr}.model-photo{min-height:245px}.model-photo img{height:220px}.model-details{padding:20px}}
+.product-catalog{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.product-catalog .model-card{margin:0;display:flex;flex-direction:column;align-items:stretch}.product-catalog .model-photo{width:100%;min-height:270px}.product-catalog .model-photo img{height:220px}.product-catalog .model-details{padding:20px;flex:1}.brand-stamp{position:absolute;top:14px;left:14px;z-index:2;color:var(--navy);font-size:12px;font-weight:900;background:white;padding:5px 10px;border-radius:14px;letter-spacing:.08em;box-shadow:0 2px 8px #00142a24}.product-catalog .model-details .btn{margin-top:5px}@media(min-width:701px) and (max-width:950px){.product-catalog{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:700px){.product-catalog{grid-template-columns:1fr}.product-catalog .model-photo{min-height:245px}.product-catalog .model-photo img{height:210px}.product-catalog .model-details{padding:20px}}
+.brand{min-width:150px}.brand img{width:148px;height:74px;object-fit:contain}.foot-brand img{width:150px;height:85px;object-fit:contain}.foot-brand b{display:none}.product-variants{display:grid;grid-template-columns:1fr 1fr;gap:5px;align-items:center;width:100%;padding:20px 12px 10px}.product-variant{text-align:center;font-size:11px;font-weight:700;color:var(--muted)}.product-variant img{display:block;width:100%;height:170px;object-fit:contain;margin:0 auto}.product-catalog .model-photo.variants-photo{min-height:270px}.product-catalog .model-photo.variants-photo .product-variant img{height:170px}@media(min-width:701px) and (max-width:950px){.product-catalog{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:700px){.brand{min-width:115px}.brand img{width:120px;height:62px}.foot-brand img{width:135px;height:76px}.product-catalog .model-photo.variants-photo{min-height:240px}.product-catalog .model-photo.variants-photo .product-variant img{height:145px}}
+
+.sale-price{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin:15px 0 10px}.sale-price del{color:#78889a;font-size:15px}.sale-price strong{font-size:25px;color:var(--navy);font-weight:900}.sale-price small{font-size:11px;font-weight:800;color:#16804d;background:#e8f7ee;border-radius:15px;padding:4px 8px}.product-variant{appearance:none;border:2px solid transparent;border-radius:12px;background:#ffffffb8;padding:8px 6px;cursor:pointer}.product-variant.selected{border-color:var(--blue);background:#fff;box-shadow:0 0 0 2px #0b467722}.product-variant:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+</style>
+<style>.instagram-line{display:flex;align-items:center;gap:8px}.instagram-icon{width:14px;height:14px;flex:none;color:#ffbd59}.foot-brand img{filter:grayscale(1) brightness(0) invert(1)}</style>
+<style>.review-controls{display:flex;gap:9px}.review-arrow{width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);font-size:22px;cursor:pointer}.review-arrow:hover{background:var(--navy);color:#fff}.review-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 32px)/3);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:3px 2px 14px;scrollbar-width:thin}.review-track .review-card{position:relative;scroll-snap-align:start;min-height:205px;padding:24px 20px 18px}.sample-tag{font-size:10px;font-weight:800;letter-spacing:.08em;color:#755500;background:#fff2c1;border-radius:12px;padding:4px 8px}.review-stars{color:#f0ad00;letter-spacing:2px;margin:12px 0 8px}.review-track .review-card p{min-height:60px}.review-track .review-card h3{margin-top:15px}.review-disclaimer{font-size:11px;color:var(--muted);margin:6px 0 0}@media(max-width:700px){.review-track{grid-auto-columns:86%}.review-controls{align-self:flex-end}}</style><style>.review-avatar{width:42px;height:42px;display:inline-grid;place-items:center;overflow:hidden;border-radius:50%;margin:8px 0 2px;box-shadow:0 2px 8px #06274b20;border:2px solid #fff}.review-avatar svg{width:100%;height:100%;display:block}</style><style>/* Homepage tuned to match the supplied AAVANI reference */
+.hero{min-height:320px;background-position:center 52%;background-size:cover}
+.hero:before{background:linear-gradient(90deg,#06274be8 0%,#06274bc9 34%,#06274b75 54%,#06274b24 100%)}
+.hero .wrap{min-height:320px;grid-template-columns:1.2fr .8fr}
+.hero-copy{padding:32px 0 36px;max-width:620px}
+.hero h1{max-width:650px;font-size:clamp(34px,4.3vw,52px);line-height:1.03;margin:13px 0 12px}
+.hero p{font-size:14px;line-height:1.5;max-width:530px;margin-bottom:14px}
+.hero-points{gap:17px;margin:14px 0 18px;font-size:11px}
+.hero-visual{height:300px}
+.hero-orbit{width:min(310px,90%);background:radial-gradient(circle,#dceaf355 0%,#b6cedf20 40%,transparent 70%)}
+.hero-product{width:min(220px,72%);height:95%}
+.product-note{right:-1%;top:23%;font-size:18px}
+.categories{background:#f4f9fd}
+.category-row{padding:15px 0}
+.section#products{padding:36px 0 42px}
+.section-title{margin-bottom:16px}
+.section-title h2{font-size:30px}
+.product-catalog{gap:12px}
+.product-catalog .model-card{border-radius:11px;box-shadow:0 5px 18px #08284910}
+.product-catalog .model-photo.variants-photo{min-height:220px}
+.product-catalog .model-photo.variants-photo .product-variant img{height:130px}
+.product-catalog .model-details{padding:15px}
+.usecases{display:none}
+.why{padding:32px 0}
+.about-grid{grid-template-columns:1fr 1.15fr .95fr;gap:24px}
+.about-art{min-height:220px}
+.reviews{background:#fff;padding-top:34px;padding-bottom:38px}
+.cta-band{background:linear-gradient(90deg,#05294b,#12628b);padding:22px 0}
+@media(max-width:950px) and (min-width:701px){.hero{min-height:340px}.hero .wrap{min-height:340px;grid-template-columns:1.2fr .8fr}.hero h1{font-size:clamp(34px,4.3vw,44px)}.hero-visual{height:300px}.hero-product{width:min(190px,74%)}.product-catalog{grid-template-columns:repeat(3,minmax(0,1fr))}.product-catalog .model-photo.variants-photo .product-variant img{height:110px}}
+@media(max-width:700px){.hero{min-height:unset;background-position:62% center}.hero:before{background:linear-gradient(180deg,#06274bd9 0%,#06274ba8 52%,#06274b45 100%)}.hero .wrap{min-height:unset;grid-template-columns:1fr}.hero-copy{padding:34px 0 0}.hero h1{font-size:38px;max-width:520px}.hero-visual{height:270px}.hero-product{height:94%;width:190px}.product-note{right:3%;top:16%;font-size:16px}.category-row{padding:10px 0}.section#products{padding:30px 0}.product-catalog .model-photo.variants-photo{min-height:225px}.product-catalog .model-photo.variants-photo .product-variant img{height:130px}}
+</style><style>
+.hero{background-image:url("assets/aavani-hero-house.png");background-position:center 52%;min-height:300px}
+.hero .wrap{min-height:300px}
+.hero-visual{height:285px}
+.hero-product{width:min(205px,70%)}
+.about-art{display:block;min-height:220px;padding:0;background:#eaf1f6}
+.about-art .about-building{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit}
+@media(max-width:700px){.hero{min-height:unset}.hero .wrap{min-height:unset}.hero-visual{height:265px}}
+</style></head>
 <body>
-  <div class="announcement">SMARTER ENERGY. LOWER BILLS. A MORE SUSTAINABLE TOMORROW.</div>
-
-  <header class="header">
-    <div class="container nav-wrap">
-      <a class="logo" href="#home" aria-label="AAVANI Energy Solutions home">
-        <span class="logo-mark">A</span>
-        <span>AAVANI<small>ENERGY SOLUTIONS PVT. LTD.</small></span>
-      </a>
-
-      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
-
-      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
-        <a href="#benefits">Benefits</a>
-        <a href="#applications">Applications</a>
-        <a href="#specifications">Specifications</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <a class="button nav-contact" href="#contact">Contact Us</a>
-    </div>
-  </header>
-
-  <main id="home">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="eyebrow">AAVANI Digital Timer Switch</div>
-          <h1>Automate. Save. Control.</h1>
-          <p class="hero-copy">
-            Set your schedule once. Lights, pumps and appliances switch on and off when you need them,
-            helping reduce unnecessary power use and giving you one less thing to remember.
-          </p>
-          <div class="hero-actions">
-            <a class="button" href="#contact">Ask About This Product <span aria-hidden="true">→</span></a>
-            <a class="button button-outline" href="#benefits">Explore Features</a>
-          </div>
-          <div class="trust-line">
-            <span>2-year warranty</span>
-            <span>Service within 24 hours</span>
-            <span>Easy to program</span>
-          </div>
-        </div>
-
-        <div class="product-stage" aria-label="Illustration of a digital timer switch">
-          <div class="stage-circle"></div>
-          <div class="timer">
-            <div class="timer-top"><span>AAVANI</span><span>DIGITAL TIMER</span></div>
-            <div class="timer-display">08:30<span class="timer-day">MON&nbsp; AUTO</span></div>
-            <div class="timer-buttons"><i></i><i></i><i></i><i></i></div>
-            <div class="terminal-row"><span>ON / AUTO</span><span>SET</span><span>OFF</span></div>
-          </div>
-          <div class="floating-badge"><strong>2 Years</strong>Product warranty</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="benefits">
-      <div class="container">
-        <div class="section-head">
-          <div class="eyebrow">Made for everyday control</div>
-          <h2>Set it once. It runs itself.</h2>
-          <p>A clear display and simple push buttons make it easy to set or change your schedule.</p>
-        </div>
-
-        <div class="feature-grid">
-          <article class="feature"><div class="icon">◷</div><h3>Programmable Schedule</h3><p>Set the ON and OFF times that suit your routine. Your saved schedule runs automatically.</p></article>
-          <article class="feature"><div class="icon">▦</div><h3>Clear Digital Display</h3><p>Check the day, time and operating mode at a glance on the digital LCD display.</p></article>
-          <article class="feature"><div class="icon">↻</div><h3>AUTO Mode</h3><p>Let your programmed schedule control the connected circuit without daily manual switching.</p></article>
-          <article class="feature"><div class="icon">⌁</div><h3>Secure Screw Terminals</h3><p>Top and bottom screw terminals provide secure wiring connections when correctly installed.</p></article>
-          <article class="feature"><div class="icon">⌂</div><h3>Multiple Applications</h3><p>Use it for suitable lighting, pumps, signboards and other devices that need a schedule.</p></article>
-          <article class="feature"><div class="icon">✓</div><h3>Simple Operation</h3><p>Easy push-button controls help you set up and adjust your schedule at installation.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section savings">
-      <div class="container">
-        <div class="section-head">
-          <div class="eyebrow" style="color:#d4bd82">Use power when it is needed</div>
-          <h2>Less unnecessary runtime. Potentially lower bills.</h2>
-          <p>Illustrative examples from the product catalogue show how scheduled operation can reduce wasted runtime.</p>
-        </div>
-
-        <div class="savings-grid">
-          <article class="saving-card">
-            <span class="label">Street light · 220 W</span>
-            <strong>₹9,600 / year</strong>
-            <p>Illustrative estimate per light when 15 unnecessary hours per day are avoided.</p>
-          </article>
-          <article class="saving-card">
-            <span class="label">Shop signboard · 900 W–3 kW</span>
-            <strong>₹15,800–₹52,600</strong>
-            <p>Illustrative annual estimate when 6 unnecessary hours each night are avoided.</p>
-          </article>
-          <article class="saving-card">
-            <span class="label">Office lighting · 500 W</span>
-            <strong>₹12,000 / year</strong>
-            <p>Illustrative estimate when lights are not left on for 10 extra hours overnight.</p>
-          </article>
-        </div>
-
-        <p class="fine-print">
-          Catalogue estimates assume ₹8 per unit (1 unit = 1 kWh). Actual savings depend on equipment,
-          usage hours and your electricity tariff.
-        </p>
-
-        <div class="calculator">
-          <div>
-            <h3>Estimate your potential energy savings</h3>
-            <p>Enter the extra runtime you want to avoid. This simple estimate is for guidance only and does not guarantee savings.</p>
-          </div>
-          <div class="calc-fields">
-            <label>Device load (watts)<input id="watts" type="number" min="1" value="500"></label>
-            <label>Extra hours per day<input id="hours" type="number" min="0" max="24" step="0.5" value="2"></label>
-            <label>Days per year<input id="days" type="number" min="1" max="366" value="300"></label>
-            <label>Electricity tariff (₹ / unit)<input id="tariff" type="number" min="0" step="0.1" value="8"></label>
-            <div class="calc-result" id="calcResult" aria-live="polite"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section applications" id="applications">
-      <div class="container">
-        <div class="section-head">
-          <div class="eyebrow">One switch. Many schedules.</div>
-          <h2>Designed for a wide range of applications</h2>
-          <p>Suitable devices and installations depend on the timer's rating and the connected circuit.</p>
-        </div>
-
-        <div class="application-grid">
-          <div class="application"><span>⌂</span>Homes</div>
-          <div class="application"><span>▤</span>Offices</div>
-          <div class="application"><span>▣</span>Shops & Showrooms</div>
-          <div class="application"><span>▥</span>Hotels</div>
-          <div class="application"><span>☼</span>Street & Garden Lights</div>
-          <div class="application"><span>◉</span>Water Pumps</div>
-          <div class="application"><span>⚙</span>Industries</div>
-          <div class="application"><span>♧</span>Agriculture</div>
-          <div class="application"><span>▧</span>Schools & Colleges</div>
-          <div class="application"><span>✚</span>Hospitals</div>
-          <div class="application"><span>▦</span>Warehouses</div>
-          <div class="application"><span>❄</span>Cold Storage</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <div class="eyebrow">Example schedules</div>
-          <h2>Plan the hours that work for you</h2>
-          <p>These are catalogue examples. Set a schedule appropriate for your needs and installation.</p>
-        </div>
-
-        <div class="schedule-wrap">
-          <div class="time-axis"><span></span><span>12 AM</span><span>6 AM</span><span>12 PM</span><span>6 PM</span><span>12 AM</span></div>
-          <div class="schedule-row"><span>Shop signboard</span><div class="track"><i class="active" style="left:75%;width:25%"></i></div><div class="track"></div><div class="track"></div><div class="track"></div><div class="track"></div></div>
-          <div class="schedule-row"><span>Street lights</span><div class="track"><i class="active" style="left:0;width:21%"></i></div><div class="track"></div><div class="track"></div><div class="track"><i class="active" style="left:33%;width:67%"></i></div><div class="track"></div></div>
-          <div class="schedule-row"><span>Water pump</span><div class="track"></div><div class="track"><i class="active" style="left:83%;width:17%"></i></div><div class="track"></div><div class="track"></div><div class="track"></div></div>
-          <div class="schedule-row"><span>Geyser</span><div class="track"></div><div class="track"><i class="active" style="left:0;width:12%"></i></div><div class="track"></div><div class="track"></div><div class="track"></div></div>
-          <div class="schedule-row"><span>Office lights & AC</span><div class="track"></div><div class="track"><i class="active" style="left:50%;width:50%"></i></div><div class="track"><i class="active" style="left:0;width:17%"></i></div><div class="track"></div><div class="track"></div></div>
-          <div class="schedule-row"><span>Garden sprinklers</span><div class="track"></div><div class="track"><i class="active" style="left:0;width:6%"></i></div><div class="track"></div><div class="track"></div><div class="track"></div></div>
-        </div>
-
-        <p class="fine-print" style="color:var(--muted)">
-          Each timer switch controls the device or circuit connected to it. Schedule bars are illustrative.
-        </p>
-      </div>
-    </section>
-
-    <section class="section" id="specifications" style="background:#f5f8f5">
-      <div class="container">
-        <div class="section-head">
-          <div class="eyebrow">Product information</div>
-          <h2>Specifications & important considerations</h2>
-          <p>Please confirm suitability and electrical ratings with AAVANI or a qualified electrician before purchase and installation.</p>
-        </div>
-
-        <div class="spec-layout">
-          <div class="spec-panel">
-            <h3>Product at a glance</h3>
-            <ul class="spec-list">
-              <li><span>Product</span><span>Digital Timer Switch</span></li>
-              <li><span>Display</span><span>Digital LCD: day, time and mode</span></li>
-              <li><span>Programming</span><span>Programmable ON/OFF schedule</span></li>
-              <li><span>Controls</span><span>Push buttons</span></li>
-              <li><span>Modes</span><span>Multiple, including AUTO</span></li>
-              <li><span>Connectivity</span><span>Standalone; no Wi-Fi or app</span></li>
-              <li><span>Installation</span><span>Qualified electrician</span></li>
-              <li><span>Location</span><span>Indoors, in dry locations</span></li>
-              <li><span>Warranty</span><span>2 years</span></li>
-            </ul>
-          </div>
-
-          <div class="spec-panel">
-            <h3>Before you choose</h3>
-            <ul class="spec-list">
-              <li><span>Load capacity</span><span>Do not exceed the rated capacity</span></li>
-              <li><span>Large machines</span><span>A contactor may be required</span></li>
-              <li><span>Power cuts</span><span>Needs supply power to switch</span></li>
-              <li><span>Clock</span><span>Check time occasionally</span></li>
-              <li><span>Outdoor use</span><span>Not waterproof; keep dry</span></li>
-              <li><span>Setup</span><span>Clock and schedule set at installation</span></li>
-            </ul>
-            <div class="notice">
-              Incorrect wiring can cause malfunction or damage. Have a qualified electrician assess
-              and install the timer. Ask us to confirm ratings and suitability for your device.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section service">
-      <div class="container">
-        <div class="section-head">
-          <div class="eyebrow">AAVANI support</div>
-          <h2>Support that continues after purchase</h2>
-        </div>
-
-        <div class="service-grid">
-          <div class="service-card"><strong>2-year warranty</strong><span>As stated in the product catalogue</span></div>
-          <div class="service-card"><strong>Within 24 hours</strong><span>Catalogue-stated service response</span></div>
-          <div class="service-card"><strong>Technical assistance</strong><span>After-sales support and guidance</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta" id="contact">
-      <div class="container cta-inner">
-        <div>
-          <div class="eyebrow">Talk to our team</div>
-          <h2>Need details or help choosing the right setup?</h2>
-          <p>Contact AAVANI Energy Solutions for product information, suitability and support.</p>
-        </div>
-        <div class="contact-actions">
-          <a class="button" href="tel:+919262999423">Call +91 92629 99423</a>
-          <a class="button button-outline" href="https://wa.me/919262999423?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20the%20AAVANI%20Digital%20Timer%20Switch." target="_blank" rel="noopener">WhatsApp Us ↗</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <h3>AAVANI Energy Solutions Pvt. Ltd.</h3>
-          <p>Smarter energy. Sustainable tomorrow.</p>
-          <p>Patna, Bihar, India</p>
-        </div>
-
-        <div>
-          <h3>Contact</h3>
-          <p><span aria-hidden="true">☎</span> <a href="tel:+919262999423">+91 92629 99423</a></p>
-          <p><span aria-hidden="true">✉</span> <a href="mailto:aavanienergysolutions@gmail.com">aavanienergysolutions@gmail.com</a></p>
-          <p><span aria-hidden="true">🌐</span> <a href="https://www.aavanienergysolutionspvtltd.com" target="_blank" rel="noopener">www.aavanienergysolutionspvtltd.com</a></p>
-          <p>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" style="vertical-align:-3px;margin-right:5px">
-              <rect x="3" y="3" width="18" height="18" rx="5"/>
-              <circle cx="12" cy="12" r="4"/>
-              <circle cx="17.5" cy="6.8" r=".8" fill="currentColor" stroke="none"/>
-            </svg>
-            AAVANI Energy Solutions Pvt Ltd
-          </p>
-        </div>
-
-        <div>
-          <h3>Office Addresses</h3>
-          <p>Head Office: 1st Floor, Hotel DP International & Banquet, Dhelwan, Mithapur, Patna, Bihar - 800020</p>
-          <p>Corporate Office: 206, Kaushlya Estate Commercial Building, Patna, Bihar - 800001</p>
-        </div>
-      </div>
-
-      <div class="copyright">© 2026 AAVANI Energy Solutions Pvt. Ltd. All rights reserved.</div>
-    </div>
-  </footer>
-
-  <div class="mobile-cta">
-    <a class="button" href="tel:+919262999423">☎ Call Us</a>
-    <a class="button" href="https://wa.me/919262999423?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20the%20AAVANI%20Digital%20Timer%20Switch." target="_blank" rel="noopener">WhatsApp</a>
-  </div>
-
-  <script>
-    const menuToggle = document.getElementById("menuToggle");
-    const navLinks = document.getElementById("navLinks");
-
-    menuToggle.addEventListener("click", () => {
-      const isOpen = navLinks.classList.toggle("open");
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.textContent = isOpen ? "×" : "☰";
-    });
-
-    navLinks.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.textContent = "☰";
-      });
-    });
-
-    const fields = ["watts", "hours", "days", "tariff"]
-      .map((id) => document.getElementById(id));
-    const result = document.getElementById("calcResult");
-
-    function updateEstimate() {
-      const [watts, hours, days, tariff] = fields
-        .map((field) => Math.max(0, Number(field.value) || 0));
-
-      const units = (watts / 1000) * hours * days;
-      const amount = units * tariff;
-
-      result.textContent =
-        `Estimated energy avoided: ${units.toLocaleString("en-IN", { maximumFractionDigits: 1 })} units/year · ` +
-        `Estimated bill reduction: ₹${amount.toLocaleString("en-IN", { maximumFractionDigits: 0 })}/year`;
-    }
-
-    fields.forEach((field) => field.addEventListener("input", updateEstimate));
-    updateEstimate();
-  </script>
-</body>
-</html>
+<div class="top"><div class="wrap"><div class="top-items"><a href="mailto:aavanienergysolutions@gmail.com">✉ &nbsp;aavanienergysolutions@gmail.com</a><a href="tel:+919262999423">☎ &nbsp;+91 92629 99423</a></div><div class="top-items"><span>▣ &nbsp;Product support</span><span>◈ &nbsp;2-year product warranty</span></div></div></div>
+<header class="head"><div class="wrap nav"><a class="brand" href="#home" aria-label="AAVANI Energy Solutions home"><img src="assets/aavani-logo-clear.webp" alt="AAVANI Energy Solutions logo"></a><button class="hamb" id="hamb" aria-label="Open menu" aria-expanded="false">☰</button><nav class="links" id="links"><a class="active" href="#home">Home</a><a href="#products">Products</a><a href="#about">About Us</a><a href="#why">Why Us</a><a href="#contact">Contact</a></nav><div class="right"><form class="search" id="searchForm"><input id="searchInput" aria-label="Search products" placeholder="Search products…"><button aria-label="Search">⌕</button></form><button class="iconbtn" aria-label="Contact us" onclick="location.href='tel:+919262999423'">♙</button><button class="iconbtn cart-trigger" id="openCart" aria-label="Open cart">🛒<span class="count" id="cartCount">0</span></button></div></div></header>
+<main>
+<section class="hero" id="home"><div class="wrap"><div class="hero-copy"><span class="pill">SMART DIGITAL TIMER SWITCH</span><h1>Smart Control for a<br><span>More Efficient Tomorrow</span></h1><p>Schedule lights, pumps and suitable appliances to run only when needed. Set your timings once and let the AAVANI digital timer switch take care of the routine.</p><div class="hero-points"><span><i class="tick">◉</i> Save energy</span><span><i class="tick">✓</i> 2-year warranty</span><span><i class="tick">⚙</i> Simple programming</span></div><a class="btn" href="#products">Shop Now <b>→</b></a></div><div class="hero-visual"><div class="hero-orbit"></div><img class="hero-product" src="assets/timer-switch.webp" alt="AAVANI digital timer switch with LCD display"><div class="product-note">Smart Switch<br>for Smart Living</div></div></div></section>
+<section class="categories" aria-label="Popular applications"><div class="wrap category-row"><div class="category"><span class="cat-icon">◷</span><span><b>Home &amp; Office</b><small>Lights and appliances</small></span></div><div class="category"><span class="cat-icon">▦</span><span><b>Water Pumps</b><small>Scheduled operation</small></span></div><div class="category"><span class="cat-icon">☼</span><span><b>Outdoor Lighting</b><small>Dry indoor timer location</small></span></div><div class="category"><span class="cat-icon">▥</span><span><b>Shops &amp; Signs</b><small>Daily ON/OFF timings</small></span></div><div class="category"><span class="cat-icon">⚡</span><span><b>Commercial Use</b><small>Check load suitability</small></span></div></div></section>
+<section class="section" id="products"><div class="wrap"><div class="section-title"><div><div class="kicker">AAVANI products</div><h2>Featured Products</h2><p>Choose an AAVANI digital timer by current rating and colour.</p></div><a class="btn outline" href="https://wa.me/919262999423?text=Hello%2C%20please%20confirm%20availability%20and%20delivery%20for%20AAVANI%20Timer%20Switches." target="_blank" rel="noopener">Ask our team ↗</a></div><div class="product-catalog"><article class="model-card"><div class="model-photo variants-photo"><span class="brand-stamp">AAVANI</span><div class="product-variants"><button class="product-variant selected" type="button" data-variant="30a_white" aria-pressed="true"><img src="assets/timer-switch.webp" alt="White AAVANI Timer 30 AMP"><span>White</span></button><button class="product-variant" type="button" data-variant="30a_black" aria-pressed="false"><img src="assets/timer-switch-black-from-white.webp" alt="Black AAVANI Timer 30 AMP"><span>Black</span></button></div></div><div class="model-details"><span class="badge">30 AMP · SALE</span><h3>AAVANI Timer 30 AMP</h3><p>Choose White or Black finish. Ask our team to confirm load suitability.</p><div class="sale-price"><del>₹4,999</del><strong>₹3,499</strong><small>Save ₹1,500</small></div><button class="btn navy add-product" data-product="30a_white">🛒 Add to cart</button></div></article><article class="model-card"><div class="model-photo variants-photo"><span class="brand-stamp">AAVANI</span><div class="product-variants"><button class="product-variant selected" type="button" data-variant="50a_white" aria-pressed="true"><img src="assets/timer-switch.webp" alt="White AAVANI Timer 50 AMP"><span>White</span></button><button class="product-variant" type="button" data-variant="50a_black" aria-pressed="false"><img src="assets/timer-switch-black-from-white.webp" alt="Black AAVANI Timer 50 AMP"><span>Black</span></button></div></div><div class="model-details"><span class="badge">50 AMP · SALE</span><h3>AAVANI Timer 50 AMP</h3><p>Choose White or Black finish. Ask our team to confirm load suitability.</p><div class="sale-price"><del>₹6,499</del><strong>₹4,499</strong><small>Save ₹2,000</small></div><button class="btn navy add-product" data-product="50a_white">🛒 Add to cart</button></div></article><article class="model-card"><div class="model-photo variants-photo"><span class="brand-stamp">AAVANI</span><div class="product-variants"><button class="product-variant selected" type="button" data-variant="63a_white" aria-pressed="true"><img src="assets/timer-switch.webp" alt="White AAVANI Timer 63 AMP"><span>White</span></button><button class="product-variant" type="button" data-variant="63a_black" aria-pressed="false"><img src="assets/timer-switch-black-from-white.webp" alt="Black AAVANI Timer 63 AMP"><span>Black</span></button></div></div><div class="model-details"><span class="badge">63 AMP · SALE</span><h3>AAVANI Timer 63 AMP</h3><p>Choose White or Black finish. Ask our team to confirm load suitability.</p><div class="sale-price"><del>₹7,999</del><strong>₹5,499</strong><small>Save ₹2,500</small></div><button class="btn navy add-product" data-product="63a_white">🛒 Add to cart</button></div></article></div><div class="trust-line"><span>🛡 2-year warranty</span><span>☎ Service within 24 hours</span><span>🔧 Qualified electrician installation</span></div></div></section>
+<section class="section usecases" id="applications"><div class="wrap"><div class="section-title"><div><div class="kicker">Where a timer helps</div><h2>One switch. Many everyday schedules.</h2><p>Useful applications listed in the product catalogue. Confirm load and installation before ordering.</p></div></div><div class="use-grid"><article class="use-card"><span class="cat-icon">⌂</span><h3>Homes</h3><p>Schedule lights, fans, geysers and suitable appliances.</p></article><article class="use-card"><span class="cat-icon">▤</span><h3>Offices</h3><p>Set timings for office lights and other suitable circuits.</p></article><article class="use-card"><span class="cat-icon">▣</span><h3>Shops &amp; showrooms</h3><p>Automate display lights and signboard schedules.</p></article><article class="use-card"><span class="cat-icon">◉</span><h3>Water pumps</h3><p>Schedule compatible pumps; have an electrician check the load.</p></article><article class="use-card"><span class="cat-icon">☼</span><h3>Street &amp; garden lights</h3><p>Set lights to switch at chosen times each day.</p></article><article class="use-card"><span class="cat-icon">⚙</span><h3>Industries</h3><p>For suitable equipment; high loads may require a contactor.</p></article><article class="use-card"><span class="cat-icon">▥</span><h3>Hotels &amp; institutions</h3><p>Use scheduled control for suitable common-area circuits.</p></article><article class="use-card"><span class="cat-icon">♧</span><h3>Agriculture</h3><p>Discuss motor and irrigation use with our technical team.</p></article></div><p style="font-size:12px;color:var(--muted);margin:18px 0 0">Safety note: this timer is not waterproof, has no Wi-Fi/app control and should be installed indoors in a dry location. A qualified electrician should install it. Do not use beyond its rated capacity.</p></div></section>
+<section class="why" id="why"><div class="wrap why-row"><div class="why-lead"><h2>Why Choose AAVANI?</h2><p>Practical scheduled control, clear product guidance and dependable after-sales assistance.</p></div><div class="why-item"><div class="big">ϟ</div><b>Energy saving</b><small>Reduce unnecessary run time</small></div><div class="why-item"><div class="big">♧</div><b>2-year warranty</b><small>Product warranty support</small></div><div class="why-item"><div class="big">⚙</div><b>Technical help</b><small>After-sales assistance</small></div><div class="why-item"><div class="big">◷</div><b>24-hour service</b><small>Support as stated in catalogue</small></div></div></section>
+<section class="section" id="about"><div class="wrap about-grid"><div class="about-art"><img class="about-building" src="assets/aavani-office-reference.jpg" alt="AAVANI Energy Solutions building"></div><div class="about-copy"><div class="kicker">About AAVANI</div><h2>Aavani Energy Solution</h2><p>AAVANI Energy Solutions Pvt. Ltd., based in Patna, Bihar, offers the digital timer switch to help schedule suitable electrical devices. Set a daily routine for lights, pumps and appliances, and avoid leaving them running longer than needed.</p><a href="#contact" class="btn">Learn More →</a></div><div class="promises"><div class="promise"><i>⚙</i><span><b>Product guidance</b><small>Check suitability before you order</small></span></div><div class="promise"><i>◈</i><span><b>Customer support</b><small>Phone and WhatsApp assistance</small></span></div><div class="promise"><i>♧</i><span><b>Responsible use</b><small>Schedule devices when required</small></span></div></div></div></section>
+<section class="section reviews" id="reviews"><div class="wrap"><div class="section-title"><div><div class="kicker">Customer feedback</div><h2>Stories from around the region</h2><p>Preview examples — replace with real customer feedback before publishing.</p></div><div class="review-controls"><button class="review-arrow" type="button" id="reviewPrev" aria-label="Previous reviews">←</button><button class="review-arrow" type="button" id="reviewNext" aria-label="Next reviews">→</button></div></div><div class="review-track" id="reviewTrack"><article class="review-card"><span class="sample-tag">SAMPLE</span><span class="review-avatar" aria-label="Illustrated sample avatar"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="24" fill="#dff2ff"/><path d="M5 48c1-11 8-17 19-17s18 6 19 17" fill="#286ca6"/><path d="M19 29h10v8H19z" fill="#b87352"/><ellipse cx="24" cy="20" rx="11" ry="13" fill="#b87352"/><path d="M13 20c-1-11 5-16 12-16 8 0 13 6 11 16l-3-7c-5 2-11 2-17-1z" fill="#17324d"/><circle cx="20" cy="21" r="1" fill="#263746"/><circle cx="28" cy="21" r="1" fill="#263746"/><path d="M21 26q3 2 6 0" fill="none" stroke="#8b4f43" stroke-width="1.4" stroke-linecap="round"/></svg></span><div class="review-stars">★★★★★</div><p>“The timer is simple to set up and helps keep our daily schedule consistent.”</p><h3>Customer · Saharsa, Bihar</h3></article><article class="review-card"><span class="sample-tag">SAMPLE</span><span class="review-avatar" aria-label="Illustrated sample avatar"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="24" fill="#fff0d6"/><path d="M5 48c1-11 8-17 19-17s18 6 19 17" fill="#a85043"/><path d="M19 29h10v8H19z" fill="#8f553b"/><ellipse cx="24" cy="20" rx="11" ry="13" fill="#8f553b"/><path d="M13 20c-1-11 5-16 12-16 8 0 13 6 11 16l-3-7c-5 2-11 2-17-1z" fill="#30251f"/><circle cx="20" cy="21" r="1" fill="#263746"/><circle cx="28" cy="21" r="1" fill="#263746"/><path d="M21 26q3 2 6 0" fill="none" stroke="#8b4f43" stroke-width="1.4" stroke-linecap="round"/></svg></span><div class="review-stars">★★★★★</div><p>“Helpful guidance before ordering, and the product is easy to understand.”</p><h3>Customer · Patna, Bihar</h3></article><article class="review-card"><span class="sample-tag">SAMPLE</span><span class="review-avatar" aria-label="Illustrated sample avatar"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="24" fill="#e5e6ff"/><path d="M5 48c1-11 8-17 19-17s18 6 19 17" fill="#3c8b72"/><path d="M19 29h10v8H19z" fill="#e0ac87"/><ellipse cx="24" cy="20" rx="11" ry="13" fill="#e0ac87"/><path d="M13 20c-1-11 5-16 12-16 8 0 13 6 11 16l-3-7c-5 2-11 2-17-1z" fill="#293448"/><circle cx="20" cy="21" r="1" fill="#263746"/><circle cx="28" cy="21" r="1" fill="#263746"/><path d="M21 26q3 2 6 0" fill="none" stroke="#8b4f43" stroke-width="1.4" stroke-linecap="round"/></svg></span><div class="review-stars">★★★★★</div><p>“A convenient option for setting regular ON and OFF timings.”</p><h3>Customer · Ranchi, Jharkhand</h3></article><article class="review-card"><span class="sample-tag">SAMPLE</span><span class="review-avatar" aria-label="Illustrated sample avatar"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="24" fill="#e2f7eb"/><path d="M5 48c1-11 8-17 19-17s18 6 19 17" fill="#b98338"/><path d="M19 29h10v8H19z" fill="#9b6249"/><ellipse cx="24" cy="20" rx="11" ry="13" fill="#9b6249"/><path d="M13 20c-1-11 5-16 12-16 8 0 13 6 11 16l-3-7c-5 2-11 2-17-1z" fill="#252b36"/><circle cx="20" cy="21" r="1" fill="#263746"/><circle cx="28" cy="21" r="1" fill="#263746"/><path d="M21 26q3 2 6 0" fill="none" stroke="#8b4f43" stroke-width="1.4" stroke-linecap="round"/></svg></span><div class="review-stars">★★★★★</div><p>“The support team explained which model to check for our application.”</p><h3>Customer · Lucknow, Uttar Pradesh</h3></article><article class="review-card"><span class="sample-tag">SAMPLE</span><span class="review-avatar" aria-label="Illustrated sample avatar"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="24" fill="#ffe8f0"/><path d="M5 48c1-11 8-17 19-17s18 6 19 17" fill="#7656a6"/><path d="M19 29h10v8H19z" fill="#cb8e69"/><ellipse cx="24" cy="20" rx="11" ry="13" fill="#cb8e69"/><path d="M13 20c-1-11 5-16 12-16 8 0 13 6 11 16l-3-7c-5 2-11 2-17-1z" fill="#402c29"/><circle cx="20" cy="21" r="1" fill="#263746"/><circle cx="28" cy="21" r="1" fill="#263746"/><path d="M21 26q3 2 6 0" fill="none" stroke="#8b4f43" stroke-width="1.4" stroke-linecap="round"/></svg></span><div class="review-stars">★★★★★</div><p>“The digital display makes the timer settings easier to follow.”</p><h3>Customer · Guwahati, Assam</h3></article><article class="review-card"><span class="sample-tag">SAMPLE</span><span class="review-avatar" aria-label="Illustrated sample avatar"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="24" fill="#e3f5f2"/><path d="M5 48c1-11 8-17 19-17s18 6 19 17" fill="#c15d57"/><path d="M19 29h10v8H19z" fill="#704632"/><ellipse cx="24" cy="20" rx="11" ry="13" fill="#704632"/><path d="M13 20c-1-11 5-16 12-16 8 0 13 6 11 16l-3-7c-5 2-11 2-17-1z" fill="#272126"/><circle cx="20" cy="21" r="1" fill="#263746"/><circle cx="28" cy="21" r="1" fill="#263746"/><path d="M21 26q3 2 6 0" fill="none" stroke="#8b4f43" stroke-width="1.4" stroke-linecap="round"/></svg></span><div class="review-stars">★★★★★</div><p>“Good help with product details and installation questions.”</p><h3>Customer · Kolkata, West Bengal</h3></article></div><p class="review-disclaimer">These are sample placeholders for layout preview, not verified customer reviews.</p></div></section>
+<section class="cta-band" id="contact"><div class="wrap cta-inner"><div><h2>Start saving energy with a schedule that suits you.</h2><p>Ask about price, availability, compatibility and delivery.</p></div><a class="btn" href="https://wa.me/919262999423?text=Hello%2C%20I%20am%20interested%20in%20the%20AAVANI%20Digital%20Timer%20Switch.%20Please%20share%20price%2C%20availability%20and%20delivery%20details." target="_blank" rel="noopener">Chat on WhatsApp ↗</a></div></section>
+</main>
+<footer class="foot"><div class="wrap"><div class="footgrid"><div><div class="foot-brand"><img src="assets/aavani-logo-clear.webp" alt=""><b>AAVANI<br>ENERGY SOLUTIONS</b></div><p>Smarter Energy · Better Tomorrow</p><p><a href="https://www.aavanienergysolutions.com" target="_blank" rel="noopener">www.aavanienergysolutions.com</a></p></div><div><h3>Explore</h3><p><a href="#home">Home</a></p><p><a href="#products">Digital Timer Switch</a></p><p><a href="#applications">Applications</a></p><p><a href="#about">About Us</a></p></div><div><h3>Customer support</h3><p><a href="tel:+919262999423">☎ +91 92629 99423</a></p><p><a href="mailto:aavanienergysolutions@gmail.com">✉ aavanienergysolutions@gmail.com</a></p><p class="instagram-line"><svg class="instagram-icon" width="14" height="14" viewBox="0 0 24 24" aria-label="Instagram" role="img"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="6.5" r="1.2" fill="currentColor"/></svg><span>Aavani Energy Solutions Pvt. Ltd.</span></p><p>Service support within 24 hours</p></div><div><h3>Contact &amp; Office Address</h3><p><strong>Head Office:</strong><br>1st Floor, Hotel DP International &amp; Banquet, Dhelwan, Mithapur, Patna, Bihar – 800020</p><p><strong>Corporate Office:</strong><br>206, Kaushlya Estate Commercial Building, Patna, Bihar – 800001</p></div></div><div class="copyright"><span>© 2026 AAVANI Energy Solutions Pvt. Ltd.</span><span>Product details and pricing are confirmed by our team before order confirmation.</span></div></div></footer>
+<div class="mobilebar"><a class="btn navy" href="tel:+919262999423">☎ Call us</a><a class="btn" href="https://wa.me/919262999423" target="_blank" rel="noopener">WhatsApp ↗</a></div>
+<div class="drawer-backdrop" id="backdrop"></div><aside class="drawer" id="drawer" aria-label="Shopping cart" aria-hidden="true"><div class="drawer-head"><h2>Your cart</h2><button class="close" id="closeCart" aria-label="Close cart">×</button></div><div id="cartItems"></div><p class="drawer-note">We'll confirm current price, stock and delivery with you on WhatsApp before the order is finalized.</p><div class="drawer-total"><div><span>Items</span><span id="itemTotal">0</span></div><div><span>Discounted total</span><strong id="cartTotal">₹0</strong></div><p id="cartSavings">10% discount included. Delivery details confirmed by AAVANI.</p><button class="btn" id="checkout">Continue on WhatsApp ↗</button></div></aside>
+<script>
+const PRODUCTS={30a_white:{name:'AAVANI Timer 30 AMP (White)',image:'assets/timer-switch.webp',price:3499,mrp:4999},30a_black:{name:'AAVANI Timer 30 AMP (Black)',image:'assets/timer-switch-black-from-white.webp',price:3499,mrp:4999},50a_white:{name:'AAVANI Timer 50 AMP (White)',image:'assets/timer-switch.webp',price:4499,mrp:6499},50a_black:{name:'AAVANI Timer 50 AMP (Black)',image:'assets/timer-switch-black-from-white.webp',price:4499,mrp:6499},63a_white:{name:'AAVANI Timer 63 AMP (White)',image:'assets/timer-switch.webp',price:5499,mrp:7999},63a_black:{name:'AAVANI Timer 63 AMP (Black)',image:'assets/timer-switch-black-from-white.webp',price:5499,mrp:7999}};let quantities=Object.fromEntries(Object.keys(PRODUCTS).map(k=>[k,0]));const $=s=>document.querySelector(s);const count=$('#cartCount'),drawer=$('#drawer'),backdrop=$('#backdrop');$('#hamb').addEventListener('click',()=>{const open=$('#links').classList.toggle('open');$('#hamb').setAttribute('aria-expanded',String(open));$('#hamb').textContent=open?'×':'☰'});$('#links').querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{$('#links').classList.remove('open');$('#hamb').setAttribute('aria-expanded','false');$('#hamb').textContent='☰'}));document.querySelectorAll('[data-variant]').forEach(button=>button.addEventListener('click',()=>{const card=button.closest('.model-card');card.querySelectorAll('[data-variant]').forEach(option=>{const active=option===button;option.classList.toggle('selected',active);option.setAttribute('aria-pressed',String(active))});card.querySelector('.add-product').dataset.product=button.dataset.variant}));function addItem(key){quantities[key]=Math.min(99,quantities[key]+1);updateCount();openCart();renderCart()}document.querySelectorAll('.add-product').forEach(button=>button.onclick=()=>addItem(button.dataset.product));function updateCount(){count.textContent=Object.values(quantities).reduce((a,b)=>a+b,0)}function openCart(){drawer.classList.add('open');backdrop.classList.add('open');drawer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}function closeCart(){drawer.classList.remove('open');backdrop.classList.remove('open');drawer.setAttribute('aria-hidden','true');document.body.style.overflow=''}function renderCart(){const items=Object.keys(PRODUCTS).filter(k=>quantities[k]>0);if(!items.length){$('#cartItems').innerHTML='<p class="drawer-note">Your cart is empty. Add a timer switch to start an enquiry.</p>';$('#itemTotal').textContent='0';$('#cartTotal').textContent='₹0';$('#cartSavings').textContent='MRP savings shown. Delivery details confirmed by AAVANI.';return}$('#cartItems').innerHTML=items.map(k=>'<div class="cartline"><img src="'+PRODUCTS[k].image+'" alt=""><div><h3>'+PRODUCTS[k].name+'</h3><small>Qty '+quantities[k]+' · ₹'+PRODUCTS[k].price.toLocaleString('en-IN')+' each</small><br><button data-remove="'+k+'">Remove</button></div><b>×'+quantities[k]+'</b></div>').join('');const qty=items.reduce((sum,k)=>sum+quantities[k],0),total=items.reduce((sum,k)=>sum+quantities[k]*PRODUCTS[k].price,0),saved=items.reduce((sum,k)=>sum+quantities[k]*(PRODUCTS[k].mrp-PRODUCTS[k].price),0);$('#itemTotal').textContent=qty;$('#cartTotal').textContent='₹'+total.toLocaleString('en-IN');$('#cartSavings').textContent='You save ₹'+saved.toLocaleString('en-IN')+' vs MRP. Delivery confirmed by AAVANI.';document.querySelectorAll('[data-remove]').forEach(button=>button.onclick=()=>{quantities[button.dataset.remove]=0;updateCount();renderCart()})}$('#openCart').onclick=()=>{openCart();renderCart()};$('#closeCart').onclick=closeCart;backdrop.onclick=closeCart;document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCart()});$('#checkout').onclick=()=>{const items=Object.keys(PRODUCTS).filter(k=>quantities[k]>0);if(!items.length){openCart();return}const order=items.map(k=>quantities[k]+' × '+PRODUCTS[k].name+' — ₹'+PRODUCTS[k].price.toLocaleString('en-IN')+' each').join('\\n');const total=items.reduce((sum,k)=>sum+quantities[k]*PRODUCTS[k].price,0);const saved=items.reduce((sum,k)=>sum+quantities[k]*(PRODUCTS[k].mrp-PRODUCTS[k].price),0);const msg='Hello, I would like to enquire/order:\\n'+order+'\\nSelling total: ₹'+total.toLocaleString('en-IN')+'\\nSavings vs MRP: ₹'+saved.toLocaleString('en-IN')+'\\nPlease confirm availability, suitability and delivery charges.';window.open('https://wa.me/919262999423?text='+encodeURIComponent(msg),'_blank','noopener')};$('#searchForm').addEventListener('submit',e=>{e.preventDefault();const q=$('#searchInput').value.toLowerCase().trim();if(!q)return;const target=/timer|switch|product|63|50|30/.test(q)?'#products':/pump|office|home|shop|light|application/.test(q)?'#applications':'#about';document.querySelector(target).scrollIntoView({behavior:'smooth'})});
+document.querySelectorAll(".review-arrow").forEach(button=>button.addEventListener("click",()=>{const track=document.querySelector("#reviewTrack"),card=track.querySelector(".review-card"),distance=card.getBoundingClientRect().width+16;track.scrollBy({left:button.id==="reviewNext"?distance:-distance,behavior:"smooth"})}));</script></body></html>
